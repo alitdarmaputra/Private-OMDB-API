@@ -1,4 +1,4 @@
-# OMDB Private API
+# Private OMDB API
 
 ## Description <a name="description"></a>
 
