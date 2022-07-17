@@ -24,6 +24,7 @@ const loginUser = require("../controllers/loginUserController.js");
 const refreshAccessToken = require("../controllers/refreshAccessTokenController.js");
 const storeFavoriteMovie = require("../controllers/storeFavoriteMovieController.js");
 const getFavoriteMovie = require("../controllers/getFavoriteMovieController.js");
+const logout = require("../controllers/logoutController");
 // Middleware
 const authMiddleware = require("../middleware/authMiddleware.js");
 app.use(bodyParser.json());
@@ -36,6 +37,7 @@ app.post("/movies/favorite", authMiddleware, storeFavoriteMovie);
 app.get("/movies/:title", authMiddleware, getPoster);
 app.get("/movies", (req, res) => res.sendStatus(403));
 app.get("/users/token", refreshAccessToken)
+app.delete("/users/logout", authMiddleware, logout);
 app.post("/users/login", loginUser);
 app.post("/users/signup", storeUser);
 app.get("/", (req, res) => {
