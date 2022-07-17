@@ -14,7 +14,7 @@ module.exports= async (req, res) => {
         jwt.verify(refreshToken, process.env.SECRET_REFRESH_KEY, (err, decoded) => {
             if(err) return res.sendStatus(403);
 
-            const newAccessToken = jwt.sign({ uid: decoded.uid }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10s"});
+            const newAccessToken = jwt.sign({ user_id: decoded.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10m"});
     
             res.cookie("authorization", newAccessToken, httpOnly=true);
             res.json({ accessToken: newAccessToken });
