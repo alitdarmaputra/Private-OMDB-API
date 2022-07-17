@@ -6,7 +6,7 @@ const Token = require("../models/Token.js");
 module.exports = async (req, res) => {
     const { name, password } = req.body;
     if(!name || !password) 
-        return req.sendStatus(403);
+        return res.sendStatus(403);
     
     try {
         const user = await User.findOne({ where: { name: name }}).then(result => {
