@@ -1,4 +1,6 @@
 const app = require("./server");
+const User = require("./models/Users.js");
+const sequelize = require("./util/database");
 
 const port = process.env.PORT || 4000;
 
