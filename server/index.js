@@ -18,11 +18,12 @@ User.hasMany(Favorite_movie, {
 sequelize.sync();
 
 // Controller
-const storeUserController = require("../controllers/storeUsersController.js");
-const getMovieController = require("../controllers/getMovieController");
-const loginUserController = require("../controllers/loginUserController.js");
-const refreshAccessTokenController = require("../controllers/refreshAccessTokenController.js");
-
+const storeUser = require("../controllers/storeUsersController.js");
+const getPoster = require("../controllers/getPosterController");
+const loginUser = require("../controllers/loginUserController.js");
+const refreshAccessToken = require("../controllers/refreshAccessTokenController.js");
+const storeFavoriteMovie = require("../controllers/storeFavoriteMovieController.js");
+const getFavoriteMovie = require("../controllers/getFavoriteMovieController.js");
 // Middleware
 const authMiddleware = require("../middleware/authMiddleware.js");
 app.use(bodyParser.json());
@@ -30,11 +31,13 @@ app.use(pino);
 app.use(cookieParser());
 
 // Endpoint
-app.get("/movies/:title", authMiddleware, getMovieController);
+app.get("/movies/favorite", authMiddleware, getFavoriteMovie);
+app.post("/movies/favorite", authMiddleware, storeFavoriteMovie);
+app.get("/movies/:title", authMiddleware, getPoster);
 app.get("/movies", (req, res) => res.sendStatus(403));
-app.get("/users/token", refreshAccessTokenController)
-app.post("/users/login", loginUserController);
-app.post("/users/signup", storeUserController);
+app.get("/users/token", refreshAccessToken)
+app.post("/users/login", loginUser);
+app.post("/users/signup", storeUser);
 app.get("/", (req, res) => {
     res.send("Wellcome to OMDB Private API");
 });
