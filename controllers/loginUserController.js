@@ -23,8 +23,23 @@ module.exports = async (req, res) => {
             }
 
             if(isSame) {
-                const accessToken = jwt.sign({ user_id: user.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10s" });
-                const refreshToken = jwt.sign({ user_id: user.user_id }, process.env.SECRET_REFRESH_KEY, { expiresIn: "3h" });
+                let accessToken, refreshToken;
+
+                jwt.sign({ user_id: user.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10000" }, (err, token) => {
+                    if(err) {
+                        console.log(err);
+                        return;
+                    }
+                    accessToken = token;
+                });
+
+                jwt.sign({ user_id: user.user_id }, process.env.SECRET_REFRESH_KEY, { expiresIn: "3h" }, (err, token) => {
+                    if(err) {
+                        console.log(err);
+                        return;
+                    }
+                    refreshToken = token;
+                });
 
                 // Save refresh token
                 try {
