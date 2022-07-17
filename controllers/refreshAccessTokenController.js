@@ -21,6 +21,6 @@ module.exports= async (req, res) => {
         });
     } catch(err) {
         console.log(err);
-        res.sendStatus(403);
+        res.sendStatus(500);
     }
 }

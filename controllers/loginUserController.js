@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
                     return res.json({ authorization: accessToken, refresh: refreshToken });
                 } catch(err) {
                     console.log(err);
-                    return res.sendStatus(403);
+                    return res.sendStatus(500);
                 }
             }
             return res.sendStatus(403);

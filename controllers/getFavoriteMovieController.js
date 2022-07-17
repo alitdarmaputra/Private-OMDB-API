@@ -26,6 +26,6 @@ module.exports = async (req, res) => {
         res.json({ favorite_movies_poster });
     } catch (err) {
         console.log(err);
-        res.sendStatus(403);
+        res.sendStatus(500);
     }
 }
