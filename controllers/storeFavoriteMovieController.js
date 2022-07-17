@@ -2,7 +2,7 @@ const Favorite_movie = require("../models/Favorite_movie.js");
 
 module.exports = async (req, res) => {
     const { title } = req.body;
-    console.log(req.user_id);
+
     if(!title) res.sendStatus(403);
 
     try {

@@ -5,8 +5,8 @@ module.exports = async (req, res) => {
     const title = req.params.title;
     try {
         const response = await omdb.getMovieData(req.params.title, "t");
-
-        if(response.status == 200) {    // Movie founded
+        
+        if(response.data.Response == "True") {    // Movie founded
             res.json({ 
                 Title: response.data.Title,
                 Poster: response.data.Poster 
