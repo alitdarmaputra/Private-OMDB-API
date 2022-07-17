@@ -17,10 +17,7 @@ module.exports = async (req, res) => {
         if(!user) throw new Error("User not found");
 
         bcrypt.compare(password, user.password, async (err, isSame) => {
-            if(err) {
-                console.log(err);
-                return;
-            }
+            if(err) console.log(err);
 
             if(isSame) {
                 const accessToken = jwt.sign({ user_id: user.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10000" });

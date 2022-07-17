@@ -21,6 +21,7 @@ sequelize.sync();
 const storeUserController = require("../controllers/storeUsersController.js");
 const getMovieController = require("../controllers/getMovieController");
 const loginUserController = require("../controllers/loginUserController.js");
+const refreshAccessTokenController = require("../controllers/refreshAccessTokenController.js");
 
 // Middleware
 const authMiddleware = require("../middleware/authMiddleware.js");
@@ -31,6 +32,7 @@ app.use(cookieParser());
 // Endpoint
 app.get("/movies/:title", authMiddleware, getMovieController);
 app.get("/movies", (req, res) => res.sendStatus(403));
+app.get("/users/token", refreshAccessTokenController)
 app.post("/users/login", loginUserController);
 app.post("/users/signup", storeUserController);
 app.get("/", (req, res) => {
