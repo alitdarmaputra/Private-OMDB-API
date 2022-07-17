@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
             if(err) console.log(err);
 
             if(isSame) {
-                const accessToken = jwt.sign({ user_id: user.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10000" });
+                const accessToken = jwt.sign({ user_id: user.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10m" });
 
                 const refreshToken = jwt.sign({ user_id: user.user_id }, process.env.SECRET_REFRESH_KEY, { expiresIn: "3h" });
       
