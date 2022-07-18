@@ -67,6 +67,7 @@ npm run dev
 
 | Method | Endpoint         | Content-Type     | Body               | Action                                                |
 |--------|------------------|------------------|--------------------|-------------------------------------------------------|
+| GET    | /                | application/json | {}                 | Homepage                                              |
 | POST   | /users/signup    | application/json | { name, password } | Create user account                                   |
 | POST   | /users/login     | application/json | { name, password } | Authenticate user                                     |
 | POST   | /users/token     | application/json | {}                 | Request new access token                              |
