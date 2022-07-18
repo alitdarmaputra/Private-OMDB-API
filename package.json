@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js | pino-pretty"
   },
   "author": "Alit Darma Putra",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "sequelize": "^6.21.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "pino-pretty": "^8.1.0"
   }
 }
