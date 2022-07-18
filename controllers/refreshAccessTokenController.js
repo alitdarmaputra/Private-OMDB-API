@@ -4,7 +4,7 @@ const Token = require("../models/Token");
 module.exports= async (req, res) => {
     const refreshToken = req.cookies && req.cookies.refresh;
 
-    if(!refreshToken) res.sendStatus(403);
+    if(!refreshToken) return res.sendStatus(403);
 
     try {
         const token = await Token.findOne({ where: { token: refreshToken }});
