@@ -17,7 +17,7 @@ A simple API to request movies poster url from OMDB API
 
 ## Tech Stack <a name="techstack"></a>
 
-Express.js, Node.js, MySQL Database, 
+Express.js, Node.js, MySQL Database
 
 ## Getting Started <a name="gettingstarted"></a>
 
