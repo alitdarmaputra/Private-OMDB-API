@@ -26,7 +26,7 @@ const User = sequelize.define("User", {
                 user.password = hash;
             })
             .catch(err => { 
-                throw new Error(); 
+                console.log(err);
             });
         }
     }

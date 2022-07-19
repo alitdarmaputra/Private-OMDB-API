@@ -3,7 +3,7 @@ const User = require("../models/Users.js");
 module.exports = async (req, res) => {
     const { name, password } = req.body;
     if(!name || !password)
-        return res.sendStatus(403);
+        return res.sendStatus(422);
     
     try {
         const user = await User.create({ name, password });

@@ -3,7 +3,7 @@ const Favorite_movie = require("../models/Favorite_movie.js");
 module.exports = async (req, res) => {
     const { title } = req.body;
 
-    if(!title) return res.sendStatus(403);
+    if(!title) return res.status(422).json({ Response: "False", message: "Invalid title" });
 
     try {
         await Favorite_movie.create({ 

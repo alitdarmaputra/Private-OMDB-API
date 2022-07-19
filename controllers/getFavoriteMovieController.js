@@ -1,29 +1,32 @@
 const Favorite_movie = require("../models/Favorite_movie.js");
-const omdb = require("../util/OMDBAPI.js");
+const axios = require("axios").default;
 
 module.exports = async (req, res) => {
     try {
         const favorite_movies = await Favorite_movie.findAll({ where: { user_id: req.user_id }});
         
         const movies_request = [];
-        for(let i = 0; i<favorite_movies.length; i++) {
-            const request = omdb.getMovieData(favorite_movies[i].dataValues.title, "t");
-            movies_request.push(request);
-        }
-        
-        let favorite_movies_poster = [];
-
-        favorite_movies_poster = await Promise.all(movies_request)
-        .then(movies => {
-            return movies.map(movie => {
-                return {
-                    Title: movie.data.Title,
-                    Poster: movie.data.Poster
-                } 
-            });
+        favorite_movies.forEach(movie => {
+            movies_request.push(axios.get(`http://www.omdbapi.com/?t=${movie.dataValues.title}&apikey=${process.env.OMDB_APIKEY}`));
         });
 
-        res.json({ favorite_movies_poster });
+        axios.all(movies_request)
+        .then(axios.spread((...responses) => {
+            const movies_poster = [];
+
+            for(let i = 0; i<responses.length; i++) {
+                if(responses[i].data.Response == "True") {
+                    movies_poster.push({
+                        Title: responses[i].data.Title,
+                        Poster: responses[i].data.Poster 
+                    });
+                }
+            }
+            res.json({ movies_poster });
+        })).catch(errors => {
+            console.log(errors);
+            res.sendStatus(500);
+        })
     } catch (err) {
         console.log(err);
         res.sendStatus(500);

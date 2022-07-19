@@ -1,11 +1,10 @@
 const axios = require("axios").default;
-const omdb = require("../util/OMDBAPI.js"); 
 
 module.exports = async (req, res) => {
     const title = req.params.title;
     try {
-        const response = await omdb.getMovieData(req.params.title, "t");
-        
+        const response = await axios.get(`http://www.omdbapi.com/?t=${value}&apikey=${process.env.OMDB_APIKEY}`);
+               
         if(response.data.Response == "True") {    // Movie founded
             res.json({ 
                 Title: response.data.Title,

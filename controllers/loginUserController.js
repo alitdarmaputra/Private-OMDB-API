@@ -6,17 +6,14 @@ const Token = require("../models/Token.js");
 module.exports = async (req, res) => {
     const { name, password } = req.body;
     if(!name || !password) 
-        return res.sendStatus(403);
+        return res.sendStatus(422);
     
     try {
-        const user = await User.findOne({ where: { name: name }}).then(result => {
-            if(result) return result.dataValues;
-            return result;
-        });
+        const user = await User.findOne({ where: { name: name }});
         
-        if(!user) throw new Error("User not found");
+        if(!user) res.status(404).json({ Response: "False", message: "User not found"});
 
-        bcrypt.compare(password, user.password, async (err, isSame) => {
+        bcrypt.compare(password, user.dataValues.password, async (err, isSame) => {
             if(err) console.log(err);
 
             if(isSame) {
@@ -36,12 +33,13 @@ module.exports = async (req, res) => {
                     console.log(err);
                     return res.sendStatus(500);
                 }
+            } else {
+                return res.status(401).json({ Response: "False", message: "Invalid username and password"});
             }
-            return res.sendStatus(403);
         })
     } catch(err) {
         console.log(err);
-        res.sendStatus(403);
+        res.sendStatus(500);
     }
 
 }
