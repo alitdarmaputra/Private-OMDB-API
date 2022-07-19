@@ -9,10 +9,10 @@ module.exports= async (req, res) => {
     try {
         const token = await Token.findOne({ where: { token: refreshToken }});
 
-        if(!token) throw new Error("Document not found");
+        if(!token) return res.sendStatus(403);
 
         jwt.verify(refreshToken, process.env.SECRET_REFRESH_KEY, (err, decoded) => {
-            if(err) return res.sendStatus(403);
+            if(err) return res.sendStatus(500);
 
             const newAccessToken = jwt.sign({ user_id: decoded.user_id }, process.env.SECRET_ACCESS_KEY, { expiresIn: "10m"});
     
